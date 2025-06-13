@@ -1,1248 +1,386 @@
 <!DOCTYPE html>
+
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatweb - Nền Tảng Marketing Tương Tác</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chatweb - Nền Tảng Marketing Tương Tác</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        /* Header Styles */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu a:hover {
-            color: #667eea;
-        }
-
-        .header-buttons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .language-selector {
-            position: relative;
-        }
-
-        .language-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .language-btn:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-        }
-
-        .language-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            display: none;
-            min-width: 120px;
-            z-index: 1001;
-        }
-
-        .language-dropdown.active {
-            display: block;
-        }
-
-        .language-dropdown button {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 0.7rem 1rem;
-            text-align: left;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .language-dropdown button:hover {
-            background: #f0f0f0;
-        }
-
-        .auth-btn {
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .login-btn {
-            background: transparent;
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .login-btn:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .register-btn {
-            background: #667eea;
-            color: white;
-        }
-
-        .register-btn:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-top: 80px;
-            padding: 2rem 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-            color: white;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            background: linear-gradient(45deg, #ff6b6b, #feca57);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Tab Sections */
-        .css-wrfca7 {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            margin: 2rem 0;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #333;
-            font-weight: 700;
-        }
-
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .tab-button {
-            background: none;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            color: #666;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-            margin: 0 0.5rem;
-        }
-
-        .tab-button.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
-        }
-
-        .tab-button:hover {
-            color: #667eea;
-            transform: translateY(-2px);
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .content-card {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .content-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .content-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .content-card p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        /* Pricing Section */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .pricing-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            border: 3px solid transparent;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-        }
-
-        .pricing-card:hover {
-            border-color: #667eea;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-
-        .pricing-card.featured {
-            border-color: #667eea;
-            transform: scale(1.05);
-        }
-
-        .pricing-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .price {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 1rem;
-        }
-
-        .price-unit {
-            font-size: 1rem;
-            color: #666;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .feature-list li {
-            padding: 0.5rem 0;
-            color: #666;
-        }
-
-        .feature-list li::before {
-            content: '✓';
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 0.5rem;
-        }
-
-        .pricing-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .pricing-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Footer */
-        .footer {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 4rem;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .tab-container {
-                flex-wrap: wrap;
-            }
-
-            .tab-button {
-                margin: 0.5rem;
-            }
-
-            .pricing-card.featured {
-                transform: none;
-            }
-        }
-    </style>
-</head>
+<link href="style.css" rel="stylesheet"/></head>
 <body>
-    <header class="header">
-        <div class="header-container">
-            <div class="logo" data-translate="logo">Chatweb</div>
-            
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="#" data-translate="industries">Ngành nghề</a></li>
-                    <li><a href="#" data-translate="features">Tính năng</a></li>
-                    <li><a href="#" data-translate="pricing">Bảng giá</a></li>
-                    <li><a href="#" data-translate="blog">Blog</a></li>
-                    <li><a href="#" data-translate="support">Hỗ trợ</a></li>
-                </ul>
-            </nav>
-
-            <div class="header-buttons">
-                <div class="language-selector">
-                    <button class="language-btn" onclick="toggleLanguageDropdown()">
-                        <span id="current-lang">🇻🇳 Tiếng Việt</span>
-                    </button>
-                    <div class="language-dropdown" id="language-dropdown">
-                        <button onclick="changeLanguage('vi')">🇻🇳 Tiếng Việt</button>
-                        <button onclick="changeLanguage('en')">🇺🇸 English</button>
-                        <button onclick="changeLanguage('ja')">🇯🇵 日本語</button>
-                    </div>
-                </div>
-                <button class="auth-btn login-btn" data-translate="login">Đăng nhập</button>
-                <button class="auth-btn register-btn" data-translate="register">Đăng ký</button>
-            </div>
-        </div>
-    </header>
-
-    <main class="main-content">
-        <section class="hero">
-            <div class="container">
-                <h1 data-translate="hero-title">Chatweb – Biến Website Của Bạn Thành Trợ Lý Bán Hàng 24/7 </h1>
-                <h2 data-translate="hero-title">Tự động hóa trò chuyện với khách hàng, tăng doanh thu và tiết kiệm nhân sự cho doanh nghiệp của bạn  </h1>
-                <p data-translate="hero-description">
+<header class="header">
+<div class="header-container">
+<div class="logo" data-translate="logo">Chatweb</div>
+<nav>
+<ul class="nav-menu">
+<li><a data-translate="industries" href="#">Ngành nghề</a></li>
+<li><a data-translate="features" href="#">Tính năng</a></li>
+<li><a data-translate="pricing" href="#">Bảng giá</a></li>
+<li><a data-translate="blog" href="#">Blog</a></li>
+<li><a data-translate="support" href="#">Hỗ trợ</a></li>
+</ul>
+</nav>
+<div class="header-buttons">
+<div class="language-selector">
+<button class="language-btn" onclick="toggleLanguageDropdown()">
+<span id="current-lang">🇻🇳 Tiếng Việt</span>
+</button>
+<div class="language-dropdown" id="language-dropdown">
+<button onclick="changeLanguage('vi')">🇻🇳 Tiếng Việt</button>
+<button onclick="changeLanguage('en')">🇺🇸 English</button>
+<button onclick="changeLanguage('ja')">🇯🇵 日本語</button>
+</div>
+</div>
+<button class="auth-btn login-btn" data-translate="login">Đăng nhập</button>
+<button class="auth-btn register-btn" data-translate="register">Đăng ký</button>
+</div>
+</div>
+</header>
+<main class="main-content">
+<section class="hero">
+<div class="container">
+<h1 data-translate="hero-title">Chatweb – Biến Website Của Bạn Thành Trợ Lý Bán Hàng 24/7 </h1>
+<h2 data-translate="hero-title">Tự động hóa trò chuyện với khách hàng, tăng doanh thu và tiết kiệm nhân sự cho doanh nghiệp của bạn  
+<p data-translate="hero-description">
                     Dễ dàng tạo chatbot AI cho website – không cần code, không tốn thời gian. Chỉ cần 1 phút thiết lập và bạn đã có 1 AI Agent của riêng mình
                 </p>
-                <button class="cta-button" data-translate="get-started">Bắt đầu ngay</button>
-            </div>
-        </section>
-
-        <div class="container">
-    <!-- First Tab Section -->
-    <section class="css-wrfca7">
-        <h2 class="section-title" data-translate="services-title">Giải Pháp Toàn Diện Từ Chatweb</h2>
-        <div class="tab-container">
-            <button class="tab-button active" onclick="showTab('services', 'smart-chatbot')" data-translate="smart-chatbot">Chatbot Thông Minh</button>
-            <button class="tab-button" onclick="showTab('services', 'easy-management')" data-translate="easy-management">Quản Lý Thuận Tiện</button>
-            <button class="tab-button" onclick="showTab('services', 'multi-purpose')" data-translate="multi-purpose">Đa Dụng</button>
-            <button class="tab-button" onclick="showTab('services', 'personalization')" data-translate="personalization">Cá Nhân Hóa</button>
-        </div>
-
-        <div id="services-smart-chatbot" class="tab-content active">
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3 data-translate="auto-reply">Trả Lời Tự Động 24/7</h3>
-                    <p data-translate="auto-reply-desc">Chatbot sử dụng AI để phản hồi khách hàng tức thì, chính xác và thân thiện.</p>
-                </div>
-                <div class="content-card">
-                    <h3 data-translate="ai-understanding">Hiểu Ý Người Dùng</h3>
-                    <p data-translate="ai-understanding-desc">Ứng dụng NLP giúp chatbot hiểu ngữ cảnh và xử lý hội thoại tự nhiên.</p>
-                </div>
-                <div class="content-card">
-                    <h3 data-translate="scenario-builder">Kịch Bản Linh Hoạt</h3>
-                    <p data-translate="scenario-builder-desc">Xây dựng các luồng trò chuyện theo nhu cầu kinh doanh của bạn.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="services-easy-management" class="tab-content">
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3 data-translate="dashboard">Học hỏi từ nhiều nguồn</h3>
-                    <p data-translate="dashboard-desc">Chủ động upload video, ảnh, các mẫu hội thoại để chatbot có thể trả lời mượt hơn</p>
-                </div>
-                <div class="content-card">
-                    <h3 data-translate="user-tracking">Quản Lý Người Dùng</h3>
-                    <p data-translate="user-tracking-desc">Lưu trữ lịch sử tương tác, phân nhóm người dùng, lọc theo hành vi.</p>
-                </div>
-                <div class="content-card">
-                    <h3 data-translate="reports">Báo Cáo & Thống Kê</h3>
-                    <p data-translate="reports-desc">Xuất báo cáo hiệu quả chatbot theo thời gian, chiến dịch và kênh.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="services-multi-purpose" class="tab-content">
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3 data-translate="multi-language">Hỗ Trợ Đa Ngôn Ngữ</h3>
-                    <p data-translate="multi-language-desc">Giao tiếp mượt mà với khách hàng toàn cầu bằng nhiều ngôn ngữ.</p>
-                </div>
-                <div class="content-card">
-                    <h3 data-translate="industry-templates">Trải nghiệm thông suốt</h3>
-                    <p data-translate="industry-templates-desc">Tự động chuyển tiếp các cuộc trò chuyện cho người thật khi cần thiết</p>
-                </div>
-                <div class="content-card">
-                    <h3 data-translate="omnichannel">Hoạt Động Trên Nhiều Kênh</h3>
-                    <p data-translate="omnichannel-desc">Tương thích với tất cả các trang web, công nghệ, framework trên thị trường</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="services-personalization" class="tab-content">
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3 data-translate="custom-responses">Câu Trả Lời Cá Nhân Hóa</h3>
-                    <p data-translate="custom-responses-desc">Chatbot ghi nhớ thông tin khách hàng để trả lời phù hợp từng người.</p>
-                </div>
-                <div class="content-card">
-                    <h3 data-translate="user-journey">Tùy Chỉnh Hành Trình Người Dùng</h3>
-                    <p data-translate="user-journey-desc">Điều hướng cuộc hội thoại dựa trên hành vi, sở thích và lịch sử tương tác.</p>
-                </div>
-                <div class="content-card">
-                    <h3 data-translate="branding-persona">Định Hình Cá Tính Chatbot</h3>
-                    <p data-translate="branding-persona-desc">Tùy chỉnh giọng điệu, cách giao tiếp để phù hợp với thương hiệu của bạn.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
+<button class="cta-button" data-translate="get-started">Bắt đầu ngay</button>
+</h2></div>
+</section>
+<div class="container">
+<!-- First Tab Section -->
 <section class="css-wrfca7">
-  <h2 class="section-title" data-translate="job">Các ngành phù hợp</h2>
-  <div class="tab-container">
-    <button class="tab-button active" onclick="showTab('job', 'manufacturing')" data-translate="manufacturing">Sản xuất</button>
-    <button class="tab-button" onclick="showTab('job', 'commerce')" data-translate="commerce">Buôn bán</button>
-    <button class="tab-button" onclick="showTab('job', 'services')" data-translate="services">Dịch vụ</button>
-    <button class="tab-button" onclick="showTab('job', 'medical')" data-translate="medical">Y tế</button>
-    <button class="tab-button" onclick="showTab('job', 'education')" data-translate="education">Giáo dục</button>
-  </div>
-
-  <!-- Ngành Sản xuất -->
-  <div id="job-manufacturing" class="tab-content active">
-    <div class="content-grid">
-      <div class="content-card">
-        <h3>Quản lý đơn hàng & dự báo nhu cầu</h3>
-        <p>AI tự phân tích dữ liệu để dự đoán nhu cầu sản xuất, tối ưu nhập xuất hàng và chuỗi cung ứng.</p>
-      </div>
-      <div class="content-card">
-        <h3>Hỗ trợ kỹ thuật và tư vấn sản phẩm</h3>
-        <p>AI học từ tài liệu, website hỗ trợ trả lời câu hỏi kỹ thuật về sản phẩm, máy móc nhanh chóng.</p>
-      </div>
-      <div class="content-card">
-        <h3>Phân phối tự động & thống kê khách hàng</h3>
-        <p>Tự động chuyển cuộc gọi/chat đến bộ phận liên quan, phân tích dữ liệu nhu cầu cải tiến sản xuất.</p>
-      </div>
-      <div class="content-card">
-        <h3>Tích hợp hệ thống</h3>
-        <p>Kết nối API, webhook với CRM, ERP nội bộ để đồng bộ dữ liệu và quy trình vận hành.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Ngành Buôn bán -->
-  <div id="job-commerce" class="tab-content">
-    <div class="content-grid">
-      <div class="content-card">
-        <h3>Tư vấn & tự đặt hàng online</h3>
-        <p>AI hỗ trợ tư vấn khách tự phục vụ, tự động đặt hàng nâng cao trải nghiệm mua sắm.</p>
-      </div>
-      <div class="content-card">
-        <h3>Phân tích vị trí khách hàng</h3>
-        <p>Tự động nhận diện vùng miền để hiển thị giá và sản phẩm phù hợp.</p>
-      </div>
-      <div class="content-card">
-        <h3>Tự động gọi điện chốt đơn</h3>
-        <p>Giúp xử lý đơn nhanh hơn, giảm tỉ lệ rớt đơn hiệu quả.</p>
-      </div>
-      <div class="content-card">
-        <h3>Theo dõi chiến dịch & hành vi khách hàng</h3>
-        <p>Gắn utm_source, thống kê click và hành vi người dùng để tối ưu quảng cáo và tỉ lệ chuyển đổi.</p>
-      </div>
-      <div class="content-card">
-        <h3>Tùy chỉnh giao diện & đa ngôn ngữ</h3>
-        <p>Thiết kế box chat theo thương hiệu, hỗ trợ chuyển đổi ngôn ngữ tự động đa quốc gia.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Ngành Dịch vụ -->
-  <div id="job-services" class="tab-content">
-    <div class="content-grid">
-      <div class="content-card">
-        <h3>Đặt lịch hẹn & chăm sóc khách hàng</h3>
-        <p>AI hỗ trợ đặt lịch, nhắc lịch hẹn và xử lý phản hồi nhanh chóng, chính xác.</p>
-      </div>
-      <div class="content-card">
-        <h3>Tích hợp đa kênh liên lạc</h3>
-        <p>Hỗ trợ khách hàng qua nhiều kênh như chat, email, điện thoại, đồng bộ dữ liệu.</p>
-      </div>
-      <div class="content-card">
-        <h3>Chuyển đổi linh hoạt giữa bot và nhân viên</h3>
-        <p>Giữ chất lượng dịch vụ bằng việc chuyển cuộc trò chuyện phù hợp giữa bot AI và nhân viên.</p>
-      </div>
-      <div class="content-card">
-        <h3>Tự động gửi email cá nhân hóa</h3>
-        <p>Nhắc lịch hẹn, thu thập phản hồi và chăm sóc khách hàng qua email tự động.</p>
-      </div>
-      <div class="content-card">
-        <h3>Phân chia nhân viên trả lời</h3>
-        <p>Tạo nhiều nhân viên trả lời, chia ca theo khu vực và thời gian làm việc.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Ngành Y tế -->
-  <div id="job-medical" class="tab-content">
-    <div class="content-grid">
-      <div class="content-card">
-        <h3>Tư vấn sức khỏe cơ bản & đặt lịch khám</h3>
-        <p>AI hỗ trợ tư vấn sức khỏe và đặt lịch khám tự động, giảm tải cho nhân viên y tế.</p>
-      </div>
-      <div class="content-card">
-        <h3>Phân loại bệnh nhân & lưu trữ thông tin</h3>
-        <p>AI phán đoán loại bệnh có thể mắc, thu thập và quản lý dữ liệu bệnh nhân tự động.</p>
-      </div>
-      <div class="content-card">
-        <h3>Chuyển tiếp nhanh cho bác sĩ</h3>
-        <p>Tự động chuyển cuộc gọi/chat tới bác sĩ khi cần thiết, đảm bảo không bỏ sót ca khẩn cấp.</p>
-      </div>
-      <div class="content-card">
-        <h3>Thông báo bot không trả lời được</h3>
-        <p>Giúp phát hiện và cảnh báo khi AI không giải quyết được yêu cầu, tránh bỏ sót thông tin quan trọng.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Ngành Giáo dục -->
-  <div id="job-education" class="tab-content">
-    <div class="content-grid">
-      <div class="content-card">
-        <h3>Tư vấn tuyển sinh & hỗ trợ học viên</h3>
-        <p>AI học từ tài liệu, website để trả lời thắc mắc về khóa học, lịch học, học phí tự động.</p>
-      </div>
-      <div class="content-card">
-        <h3>Phân luồng học sinh theo nhu cầu</h3>
-        <p>Tự động phân loại học viên theo độ tuổi, trình độ và mục tiêu học tập.</p>
-      </div>
-      <div class="content-card">
-        <h3>Thống kê nhu cầu & tối ưu chương trình</h3>
-        <p>Thu thập dữ liệu để tối ưu chương trình đào tạo và chiến dịch marketing hiệu quả.</p>
-      </div>
-      <div class="content-card">
-        <h3>Chatbot tự động 24/7</h3>
-        <p>Hỗ trợ học viên, phụ huynh mọi lúc, mọi nơi ngay cả ngoài giờ hành chính.</p>
-      </div>
-      <div class="content-card">
-        <h3>Chuyển đổi chat thành tài liệu học tập</h3>
-        <p>Biến các đoạn hội thoại thành tài liệu FAQ, nội dung học tập có giá trị.</p>
-      </div>
-    </div>
-  </div>
+<h2 class="section-title" data-translate="services-title">Giải Pháp Toàn Diện Từ Chatweb</h2>
+<div class="tab-container">
+<button class="tab-button active" data-translate="smart-chatbot" onclick="showTab('services', 'smart-chatbot')">Chatbot Thông Minh</button>
+<button class="tab-button" data-translate="easy-management" onclick="showTab('services', 'easy-management')">Quản Lý Thuận Tiện</button>
+<button class="tab-button" data-translate="multi-purpose" onclick="showTab('services', 'multi-purpose')">Đa Dụng</button>
+<button class="tab-button" data-translate="personalization" onclick="showTab('services', 'personalization')">Cá Nhân Hóa</button>
+</div>
+<div class="tab-content active" id="services-smart-chatbot">
+<div class="content-grid">
+<div class="content-card">
+<h3 data-translate="auto-reply">Trả Lời Tự Động 24/7</h3>
+<p data-translate="auto-reply-desc">Chatbot sử dụng AI để phản hồi khách hàng tức thì, chính xác và thân thiện.</p>
+</div>
+<div class="content-card">
+<h3 data-translate="ai-understanding">Hiểu Ý Người Dùng</h3>
+<p data-translate="ai-understanding-desc">Ứng dụng NLP giúp chatbot hiểu ngữ cảnh và xử lý hội thoại tự nhiên.</p>
+</div>
+<div class="content-card">
+<h3 data-translate="scenario-builder">Kịch Bản Linh Hoạt</h3>
+<p data-translate="scenario-builder-desc">Xây dựng các luồng trò chuyện theo nhu cầu kinh doanh của bạn.</p>
+</div>
+</div>
+</div>
+<div class="tab-content" id="services-easy-management">
+<div class="content-grid">
+<div class="content-card">
+<h3 data-translate="dashboard">Học hỏi từ nhiều nguồn</h3>
+<p data-translate="dashboard-desc">Chủ động upload video, ảnh, các mẫu hội thoại để chatbot có thể trả lời mượt hơn</p>
+</div>
+<div class="content-card">
+<h3 data-translate="user-tracking">Quản Lý Người Dùng</h3>
+<p data-translate="user-tracking-desc">Lưu trữ lịch sử tương tác, phân nhóm người dùng, lọc theo hành vi.</p>
+</div>
+<div class="content-card">
+<h3 data-translate="reports">Báo Cáo &amp; Thống Kê</h3>
+<p data-translate="reports-desc">Xuất báo cáo hiệu quả chatbot theo thời gian, chiến dịch và kênh.</p>
+</div>
+</div>
+</div>
+<div class="tab-content" id="services-multi-purpose">
+<div class="content-grid">
+<div class="content-card">
+<h3 data-translate="multi-language">Hỗ Trợ Đa Ngôn Ngữ</h3>
+<p data-translate="multi-language-desc">Giao tiếp mượt mà với khách hàng toàn cầu bằng nhiều ngôn ngữ.</p>
+</div>
+<div class="content-card">
+<h3 data-translate="industry-templates">Trải nghiệm thông suốt</h3>
+<p data-translate="industry-templates-desc">Tự động chuyển tiếp các cuộc trò chuyện cho người thật khi cần thiết</p>
+</div>
+<div class="content-card">
+<h3 data-translate="omnichannel">Hoạt Động Trên Nhiều Kênh</h3>
+<p data-translate="omnichannel-desc">Tương thích với tất cả các trang web, công nghệ, framework trên thị trường</p>
+</div>
+</div>
+</div>
+<div class="tab-content" id="services-personalization">
+<div class="content-grid">
+<div class="content-card">
+<h3 data-translate="custom-responses">Câu Trả Lời Cá Nhân Hóa</h3>
+<p data-translate="custom-responses-desc">Chatbot ghi nhớ thông tin khách hàng để trả lời phù hợp từng người.</p>
+</div>
+<div class="content-card">
+<h3 data-translate="user-journey">Tùy Chỉnh Hành Trình Người Dùng</h3>
+<p data-translate="user-journey-desc">Điều hướng cuộc hội thoại dựa trên hành vi, sở thích và lịch sử tương tác.</p>
+</div>
+<div class="content-card">
+<h3 data-translate="branding-persona">Định Hình Cá Tính Chatbot</h3>
+<p data-translate="branding-persona-desc">Tùy chỉnh giọng điệu, cách giao tiếp để phù hợp với thương hiệu của bạn.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<section class="css-wrfca7">
+<h2 class="section-title" data-translate="job">Các ngành phù hợp</h2>
+<div class="tab-container">
+<button class="tab-button active" data-translate="manufacturing" onclick="showTab('job', 'manufacturing')">Sản xuất</button>
+<button class="tab-button" data-translate="commerce" onclick="showTab('job', 'commerce')">Buôn bán</button>
+<button class="tab-button" data-translate="services" onclick="showTab('job', 'services')">Dịch vụ</button>
+<button class="tab-button" data-translate="medical" onclick="showTab('job', 'medical')">Y tế</button>
+<button class="tab-button" data-translate="education" onclick="showTab('job', 'education')">Giáo dục</button>
+</div>
+<!-- Ngành Sản xuất -->
+<div class="tab-content active" id="job-manufacturing">
+<div class="content-grid">
+<div class="content-card">
+<h3>Quản lý đơn hàng &amp; dự báo nhu cầu</h3>
+<p>AI tự phân tích dữ liệu để dự đoán nhu cầu sản xuất, tối ưu nhập xuất hàng và chuỗi cung ứng.</p>
+</div>
+<div class="content-card">
+<h3>Hỗ trợ kỹ thuật và tư vấn sản phẩm</h3>
+<p>AI học từ tài liệu, website hỗ trợ trả lời câu hỏi kỹ thuật về sản phẩm, máy móc nhanh chóng.</p>
+</div>
+<div class="content-card">
+<h3>Phân phối tự động &amp; thống kê khách hàng</h3>
+<p>Tự động chuyển cuộc gọi/chat đến bộ phận liên quan, phân tích dữ liệu nhu cầu cải tiến sản xuất.</p>
+</div>
+<div class="content-card">
+<h3>Tích hợp hệ thống</h3>
+<p>Kết nối API, webhook với CRM, ERP nội bộ để đồng bộ dữ liệu và quy trình vận hành.</p>
+</div>
+</div>
+</div>
+<!-- Ngành Buôn bán -->
+<div class="tab-content" id="job-commerce">
+<div class="content-grid">
+<div class="content-card">
+<h3>Tư vấn &amp; tự đặt hàng online</h3>
+<p>AI hỗ trợ tư vấn khách tự phục vụ, tự động đặt hàng nâng cao trải nghiệm mua sắm.</p>
+</div>
+<div class="content-card">
+<h3>Phân tích vị trí khách hàng</h3>
+<p>Tự động nhận diện vùng miền để hiển thị giá và sản phẩm phù hợp.</p>
+</div>
+<div class="content-card">
+<h3>Tự động gọi điện chốt đơn</h3>
+<p>Giúp xử lý đơn nhanh hơn, giảm tỉ lệ rớt đơn hiệu quả.</p>
+</div>
+<div class="content-card">
+<h3>Theo dõi chiến dịch &amp; hành vi khách hàng</h3>
+<p>Gắn utm_source, thống kê click và hành vi người dùng để tối ưu quảng cáo và tỉ lệ chuyển đổi.</p>
+</div>
+<div class="content-card">
+<h3>Tùy chỉnh giao diện &amp; đa ngôn ngữ</h3>
+<p>Thiết kế box chat theo thương hiệu, hỗ trợ chuyển đổi ngôn ngữ tự động đa quốc gia.</p>
+</div>
+</div>
+</div>
+<!-- Ngành Dịch vụ -->
+<div class="tab-content" id="job-services">
+<div class="content-grid">
+<div class="content-card">
+<h3>Đặt lịch hẹn &amp; chăm sóc khách hàng</h3>
+<p>AI hỗ trợ đặt lịch, nhắc lịch hẹn và xử lý phản hồi nhanh chóng, chính xác.</p>
+</div>
+<div class="content-card">
+<h3>Tích hợp đa kênh liên lạc</h3>
+<p>Hỗ trợ khách hàng qua nhiều kênh như chat, email, điện thoại, đồng bộ dữ liệu.</p>
+</div>
+<div class="content-card">
+<h3>Chuyển đổi linh hoạt giữa bot và nhân viên</h3>
+<p>Giữ chất lượng dịch vụ bằng việc chuyển cuộc trò chuyện phù hợp giữa bot AI và nhân viên.</p>
+</div>
+<div class="content-card">
+<h3>Tự động gửi email cá nhân hóa</h3>
+<p>Nhắc lịch hẹn, thu thập phản hồi và chăm sóc khách hàng qua email tự động.</p>
+</div>
+<div class="content-card">
+<h3>Phân chia nhân viên trả lời</h3>
+<p>Tạo nhiều nhân viên trả lời, chia ca theo khu vực và thời gian làm việc.</p>
+</div>
+</div>
+</div>
+<!-- Ngành Y tế -->
+<div class="tab-content" id="job-medical">
+<div class="content-grid">
+<div class="content-card">
+<h3>Tư vấn sức khỏe cơ bản &amp; đặt lịch khám</h3>
+<p>AI hỗ trợ tư vấn sức khỏe và đặt lịch khám tự động, giảm tải cho nhân viên y tế.</p>
+</div>
+<div class="content-card">
+<h3>Phân loại bệnh nhân &amp; lưu trữ thông tin</h3>
+<p>AI phán đoán loại bệnh có thể mắc, thu thập và quản lý dữ liệu bệnh nhân tự động.</p>
+</div>
+<div class="content-card">
+<h3>Chuyển tiếp nhanh cho bác sĩ</h3>
+<p>Tự động chuyển cuộc gọi/chat tới bác sĩ khi cần thiết, đảm bảo không bỏ sót ca khẩn cấp.</p>
+</div>
+<div class="content-card">
+<h3>Thông báo bot không trả lời được</h3>
+<p>Giúp phát hiện và cảnh báo khi AI không giải quyết được yêu cầu, tránh bỏ sót thông tin quan trọng.</p>
+</div>
+</div>
+</div>
+<!-- Ngành Giáo dục -->
+<div class="tab-content" id="job-education">
+<div class="content-grid">
+<div class="content-card">
+<h3>Tư vấn tuyển sinh &amp; hỗ trợ học viên</h3>
+<p>AI học từ tài liệu, website để trả lời thắc mắc về khóa học, lịch học, học phí tự động.</p>
+</div>
+<div class="content-card">
+<h3>Phân luồng học sinh theo nhu cầu</h3>
+<p>Tự động phân loại học viên theo độ tuổi, trình độ và mục tiêu học tập.</p>
+</div>
+<div class="content-card">
+<h3>Thống kê nhu cầu &amp; tối ưu chương trình</h3>
+<p>Thu thập dữ liệu để tối ưu chương trình đào tạo và chiến dịch marketing hiệu quả.</p>
+</div>
+<div class="content-card">
+<h3>Chatbot tự động 24/7</h3>
+<p>Hỗ trợ học viên, phụ huynh mọi lúc, mọi nơi ngay cả ngoài giờ hành chính.</p>
+</div>
+<div class="content-card">
+<h3>Chuyển đổi chat thành tài liệu học tập</h3>
+<p>Biến các đoạn hội thoại thành tài liệu FAQ, nội dung học tập có giá trị.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Second Tab Section -->
+<section class="css-wrfca7">
+<h2 class="section-title" data-translate="pricing-title">Bảng Giá Dịch Vụ</h2>
+<div class="tab-container">
+<button class="tab-button active" data-translate="monthly" onclick="showTab('pricing', 'monthly')">Hàng tháng</button>
+<button class="tab-button" data-translate="yearly" onclick="showTab('pricing', 'yearly')">Hàng năm</button>
+<button class="tab-button" data-translate="enterprise" onclick="showTab('pricing', 'enterprise')">Doanh nghiệp</button>
+</div>
+<div class="tab-content active" id="pricing-monthly">
+<div class="pricing-grid">
+<div class="pricing-card">
+<h3 data-translate="basic-plan">Cơ Bản</h3>
+<div class="price">
+                                0<span class="price-unit">₫</span>
+</div>
+<ul class="feature-list">
+<li data-translate="basic-feature-1">Tối đa 20 liên kết</li>
+<li data-translate="basic-feature-2">5,000 lượt xem</li>
+<li data-translate="basic-feature-3">Tùy chỉnh cơ bản</li>
+<li data-translate="basic-feature-4">Hỗ trợ email</li>
+</ul>
+<button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
+</div>
+<div class="pricing-card featured">
+<h3 data-translate="plus-plan">Plus</h3>
+<div class="price">
+                                299,000<span class="price-unit">₫/tháng</span>
+</div>
+<ul class="feature-list">
+<li data-translate="plus-feature-1">Tối đa 100 liên kết</li>
+<li data-translate="plus-feature-2">30,000 lượt xem</li>
+<li data-translate="plus-feature-3">Tùy chỉnh nâng cao</li>
+<li data-translate="plus-feature-4">Phân tích chi tiết</li>
+<li data-translate="plus-feature-5">Hỗ trợ ưu tiên</li>
+</ul>
+<button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
+</div>
+<div class="pricing-card">
+<h3 data-translate="pro-plan">Pro</h3>
+<div class="price">
+                                599,000<span class="price-unit">₫/tháng</span>
+</div>
+<ul class="feature-list">
+<li data-translate="pro-feature-1">Liên kết không giới hạn</li>
+<li data-translate="pro-feature-2">Lượt xem không giới hạn</li>
+<li data-translate="pro-feature-3">Tùy chỉnh động</li>
+<li data-translate="pro-feature-4">Phân tích nâng cao</li>
+<li data-translate="pro-feature-5">API truy cập</li>
+<li data-translate="pro-feature-6">Hỗ trợ 24/7</li>
+</ul>
+<button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
+</div>
+</div>
+</div>
+<div class="tab-content" id="pricing-yearly">
+<div class="pricing-grid">
+<div class="pricing-card">
+<h3 data-translate="basic-plan">Cơ Bản</h3>
+<div class="price">
+                                0<span class="price-unit">₫</span>
+</div>
+<ul class="feature-list">
+<li data-translate="basic-feature-1">Tối đa 20 liên kết</li>
+<li data-translate="basic-feature-2">5,000 lượt xem</li>
+<li data-translate="basic-feature-3">Tùy chỉnh cơ bản</li>
+<li data-translate="basic-feature-4">Hỗ trợ email</li>
+</ul>
+<button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
+</div>
+<div class="pricing-card featured">
+<h3 data-translate="plus-plan">Plus <span style="color: #ff6b6b;">(-20%)</span></h3>
+<div class="price">
+                                2,868,000<span class="price-unit">₫/năm</span>
+</div>
+<ul class="feature-list">
+<li data-translate="plus-feature-1">Tối đa 100 liên kết</li>
+<li data-translate="plus-feature-2">30,000 lượt xem</li>
+<li data-translate="plus-feature-3">Tùy chỉnh nâng cao</li>
+<li data-translate="plus-feature-4">Phân tích chi tiết</li>
+<li data-translate="plus-feature-5">Hỗ trợ ưu tiên</li>
+<li style="color: #ff6b6b;">Tiết kiệm 2 tháng!</li>
+</ul>
+<button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
+</div>
+<div class="pricing-card">
+<h3 data-translate="pro-plan">Pro <span style="color: #ff6b6b;">(-20%)</span></h3>
+<div class="price">
+                                5,748,000<span class="price-unit">₫/năm</span>
+</div>
+<ul class="feature-list">
+<li data-translate="pro-feature-1">Liên kết không giới hạn</li>
+<li data-translate="pro-feature-2">Lượt xem không giới hạn</li>
+<li data-translate="pro-feature-3">Tùy chỉnh động</li>
+<li data-translate="pro-feature-4">Phân tích nâng cao</li>
+<li data-translate="pro-feature-5">API truy cập</li>
+<li data-translate="pro-feature-6">Hỗ trợ 24/7</li>
+<li style="color: #ff6b6b;">Tiết kiệm 2 tháng!</li>
+</ul>
+<button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
+</div>
+</div>
+</div>
+<div class="tab-content" id="pricing-enterprise">
+<div class="pricing-grid">
+<div class="pricing-card featured" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
+<h3 data-translate="enterprise-plan">Doanh Nghiệp</h3>
+<div class="price">
+<span data-translate="contact-us">Liên hệ</span>
+</div>
+<ul class="feature-list">
+<li data-translate="enterprise-feature-1">Giải pháp tùy chỉnh hoàn toàn</li>
+<li data-translate="enterprise-feature-2">Tích hợp hệ thống doanh nghiệp</li>
+<li data-translate="enterprise-feature-3">Hỗ trợ dedicated manager</li>
+<li data-translate="enterprise-feature-4">SLA 99.9% uptime</li>
+<li data-translate="enterprise-feature-5">Bảo mật cấp ngân hàng</li>
+<li data-translate="enterprise-feature-6">Đào tạo và tư vấn chuyên sâu</li>
+<li data-translate="enterprise-feature-7">API không giới hạn</li>
+<li data-translate="enterprise-feature-8">Báo cáo tùy chỉnh</li>
+</ul>
+<button class="pricing-btn" data-translate="contact-sales">Liên hệ bán hàng</button>
+</div>
+</div>
+</div>
 </section>
 
-            
-            <!-- Second Tab Section -->
-            <section class="css-wrfca7">
-                <h2 class="section-title" data-translate="pricing-title">Bảng Giá Dịch Vụ</h2>
-                <div class="tab-container">
-                    <button class="tab-button active" onclick="showTab('pricing', 'monthly')" data-translate="monthly">Hàng tháng</button>
-                    <button class="tab-button" onclick="showTab('pricing', 'yearly')" data-translate="yearly">Hàng năm</button>
-                    <button class="tab-button" onclick="showTab('pricing', 'enterprise')" data-translate="enterprise">Doanh nghiệp</button>
-                </div>
+</main>
+<footer class="footer">
+<div class="container">
+<p data-translate="footer-text">© 2025 JoyHub. Tất cả quyền được bảo lưu. Tạo trải nghiệm tương tác tuyệt vời.</p>
+</div>
+</footer>
 
-                <div id="pricing-monthly" class="tab-content active">
-                    <div class="pricing-grid">
-                        <div class="pricing-card">
-                            <h3 data-translate="basic-plan">Cơ Bản</h3>
-                            <div class="price">
-                                0<span class="price-unit">₫</span>
-                            </div>
-                            <ul class="feature-list">
-                                <li data-translate="basic-feature-1">Tối đa 20 liên kết</li>
-                                <li data-translate="basic-feature-2">5,000 lượt xem</li>
-                                <li data-translate="basic-feature-3">Tùy chỉnh cơ bản</li>
-                                <li data-translate="basic-feature-4">Hỗ trợ email</li>
-                            </ul>
-                            <button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
-                        </div>
-
-                        <div class="pricing-card featured">
-                            <h3 data-translate="plus-plan">Plus</h3>
-                            <div class="price">
-                                299,000<span class="price-unit">₫/tháng</span>
-                            </div>
-                            <ul class="feature-list">
-                                <li data-translate="plus-feature-1">Tối đa 100 liên kết</li>
-                                <li data-translate="plus-feature-2">30,000 lượt xem</li>
-                                <li data-translate="plus-feature-3">Tùy chỉnh nâng cao</li>
-                                <li data-translate="plus-feature-4">Phân tích chi tiết</li>
-                                <li data-translate="plus-feature-5">Hỗ trợ ưu tiên</li>
-                            </ul>
-                            <button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
-                        </div>
-
-                        <div class="pricing-card">
-                            <h3 data-translate="pro-plan">Pro</h3>
-                            <div class="price">
-                                599,000<span class="price-unit">₫/tháng</span>
-                            </div>
-                            <ul class="feature-list">
-                                <li data-translate="pro-feature-1">Liên kết không giới hạn</li>
-                                <li data-translate="pro-feature-2">Lượt xem không giới hạn</li>
-                                <li data-translate="pro-feature-3">Tùy chỉnh động</li>
-                                <li data-translate="pro-feature-4">Phân tích nâng cao</li>
-                                <li data-translate="pro-feature-5">API truy cập</li>
-                                <li data-translate="pro-feature-6">Hỗ trợ 24/7</li>
-                            </ul>
-                            <button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="pricing-yearly" class="tab-content">
-                    <div class="pricing-grid">
-                        <div class="pricing-card">
-                            <h3 data-translate="basic-plan">Cơ Bản</h3>
-                            <div class="price">
-                                0<span class="price-unit">₫</span>
-                            </div>
-                            <ul class="feature-list">
-                                <li data-translate="basic-feature-1">Tối đa 20 liên kết</li>
-                                <li data-translate="basic-feature-2">5,000 lượt xem</li>
-                                <li data-translate="basic-feature-3">Tùy chỉnh cơ bản</li>
-                                <li data-translate="basic-feature-4">Hỗ trợ email</li>
-                            </ul>
-                            <button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
-                        </div>
-
-                        <div class="pricing-card featured">
-                            <h3 data-translate="plus-plan">Plus <span style="color: #ff6b6b;">(-20%)</span></h3>
-                            <div class="price">
-                                2,868,000<span class="price-unit">₫/năm</span>
-                            </div>
-                            <ul class="feature-list">
-                                <li data-translate="plus-feature-1">Tối đa 100 liên kết</li>
-                                <li data-translate="plus-feature-2">30,000 lượt xem</li>
-                                <li data-translate="plus-feature-3">Tùy chỉnh nâng cao</li>
-                                <li data-translate="plus-feature-4">Phân tích chi tiết</li>
-                                <li data-translate="plus-feature-5">Hỗ trợ ưu tiên</li>
-                                <li style="color: #ff6b6b;">Tiết kiệm 2 tháng!</li>
-                            </ul>
-                            <button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
-                        </div>
-
-                        <div class="pricing-card">
-                            <h3 data-translate="pro-plan">Pro <span style="color: #ff6b6b;">(-20%)</span></h3>
-                            <div class="price">
-                                5,748,000<span class="price-unit">₫/năm</span>
-                            </div>
-                            <ul class="feature-list">
-                                <li data-translate="pro-feature-1">Liên kết không giới hạn</li>
-                                <li data-translate="pro-feature-2">Lượt xem không giới hạn</li>
-                                <li data-translate="pro-feature-3">Tùy chỉnh động</li>
-                                <li data-translate="pro-feature-4">Phân tích nâng cao</li>
-                                <li data-translate="pro-feature-5">API truy cập</li>
-                                <li data-translate="pro-feature-6">Hỗ trợ 24/7</li>
-                                <li style="color: #ff6b6b;">Tiết kiệm 2 tháng!</li>
-                            </ul>
-                            <button class="pricing-btn" data-translate="choose-plan">Chọn gói</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="pricing-enterprise" class="tab-content">
-                    <div class="pricing-grid">
-                        <div class="pricing-card featured" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
-                            <h3 data-translate="enterprise-plan">Doanh Nghiệp</h3>
-                            <div class="price">
-                                <span data-translate="contact-us">Liên hệ</span>
-                            </div>
-                            <ul class="feature-list">
-                                <li data-translate="enterprise-feature-1">Giải pháp tùy chỉnh hoàn toàn</li>
-                                <li data-translate="enterprise-feature-2">Tích hợp hệ thống doanh nghiệp</li>
-                                <li data-translate="enterprise-feature-3">Hỗ trợ dedicated manager</li>
-                                <li data-translate="enterprise-feature-4">SLA 99.9% uptime</li>
-                                <li data-translate="enterprise-feature-5">Bảo mật cấp ngân hàng</li>
-                                <li data-translate="enterprise-feature-6">Đào tạo và tư vấn chuyên sâu</li>
-                                <li data-translate="enterprise-feature-7">API không giới hạn</li>
-                                <li data-translate="enterprise-feature-8">Báo cáo tùy chỉnh</li>
-                            </ul>
-                            <button class="pricing-btn" data-translate="contact-sales">Liên hệ bán hàng</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <p data-translate="footer-text">&copy; 2025 JoyHub. Tất cả quyền được bảo lưu. Tạo trải nghiệm tương tác tuyệt vời.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Language translations
-        const translations = {
-            vi: {
-                logo: "JoyHub",
-                industries: "Ngành nghề",
-                features: "Tính năng",
-                pricing: "Bảng giá",
-                blog: "Blog",
-                support: "Hỗ trợ",
-                login: "Đăng nhập",
-                register: "Đăng ký",
-                "hero-title": "JoyHub - Cổng Kết Nối Marketing Tương Tác",
-                "hero-description": "Nền tảng của chúng tôi cách mạng hóa cách bạn kết nối với khán giả, cung cấp các trang liên kết sinh học hấp dẫn và phân tích chi tiết. Trải nghiệm niềm vui của tương tác liền mạch và xem tác động thương hiệu của bạn phát triển với JoyHub.",
-                "get-started": "Bắt đầu ngay",
-                "services-title": "Dịch Vụ Của Chúng Tôi",
-                marketing: "Marketing",
-                analytics: "Phân tích",
-                branding: "Thương hiệu",
-                integration: "Tích hợp",
-                "social-marketing": "Marketing Mạng Xã Hội",
-                "social-marketing-desc": "Tối ưu hóa chiến lược mạng xã hội của bạn với các công cụ marketing tiên tiến và phân tích chi tiết.",
-                "content-creation": "Tạo Nội Dung",
-                "content-creation-desc": "Tạo nội dung hấp dẫn với các mẫu có sẵn và công cụ chỉnh sửa chuyên nghiệp.",
-                "email-campaigns": "Chiến Dịch Email",
-                "email-campaigns-desc": "Thiết kế và gửi các email marketing hiệu quả với tỷ lệ mở cao.",
-                "real-time-analytics": "Phân Tích Thời Gian Thực",
-                "real-time-analytics-desc": "Theo dõi hiệu suất chiến dịch của bạn với dữ liệu cập nhật liên tục.",
-                "user-behavior": "Hành Vi Người Dùng",
-                "user-behavior-desc": "Hiểu rõ cách khách hàng tương tác với thương hiệu của bạn.",
-                "conversion-tracking": "Theo Dõi Chuyển Đổi",
-                "conversion-tracking-desc": "Đo lường ROI và tối ưu hóa tỷ lệ chuyển đổi hiệu quả.",
-                "brand-identity": "Nhận Diện Thương Hiệu",
-                "brand-identity-desc": "Xây dựng nhận diện thương hiệu mạnh mẽ và nhất quán trên mọi kênh.",
-                "logo-design": "Thiết Kế Logo",
-                "logo-design-desc": "Tạo logo độc đáo và chuyên nghiệp cho thương hiệu của bạn.",
-                "brand-guidelines": "Hướng Dẫn Thương Hiệu",
-                "brand-guidelines-desc": "Thiết lập các nguyên tắc và hướng dẫn sử dụng thương hiệu.",
-                "api-integration": "Tích Hợp API",
-                "api-integration-desc": "Kết nối liền mạch với các nền tảng và dịch vụ khác.",
-                "third-party": "Ứng Dụng Bên Thứ Ba",
-                "third-party-desc": "Tích hợp với hàng trăm ứng dụng phổ biến.",
-                automation: "Tự Động Hóa",
-                "automation-desc": "Thiết lập quy trình làm việc tự động để tiết kiệm thời gian.",
-                "pricing-title": "Bảng Giá Dịch Vụ",
-                monthly: "Hàng tháng",
-                yearly: "Hàng năm",
-                enterprise: "Doanh nghiệp",
-                "basic-plan": "Cơ Bản",
-                "plus-plan": "Plus",
-                "pro-plan": "Pro",
-                "enterprise-plan": "Doanh Nghiệp",
-                "contact-us": "Liên hệ",
-                "basic-feature-1": "Tối đa 20 liên kết",
-                "basic-feature-2": "5,000 lượt xem",
-                "basic-feature-3": "Tùy chỉnh cơ bản",
-                "basic-feature-4": "Hỗ trợ email",
-                "plus-feature-1": "Tối đa 100 liên kết",
-                "plus-feature-2": "30,000 lượt xem",
-                "plus-feature-3": "Tùy chỉnh nâng cao",
-                "plus-feature-4": "Phân tích chi tiết",
-                "plus-feature-5": "Hỗ trợ ưu tiên",
-                "pro-feature-1": "Liên kết không giới hạn",
-                "pro-feature-2": "Lượt xem không giới hạn",
-                "pro-feature-3": "Tùy chỉnh động",
-                "pro-feature-4": "Phân tích nâng cao",
-                "pro-feature-5": "API truy cập",
-                "pro-feature-6": "Hỗ trợ 24/7",
-                "enterprise-feature-1": "Giải pháp tùy chỉnh hoàn toàn",
-                "enterprise-feature-2": "Tích hợp hệ thống doanh nghiệp",
-                "enterprise-feature-3": "Hỗ trợ dedicated manager",
-                "enterprise-feature-4": "SLA 99.9% uptime",
-                "enterprise-feature-5": "Bảo mật cấp ngân hàng",
-                "enterprise-feature-6": "Đào tạo và tư vấn chuyên sâu",
-                "enterprise-feature-7": "API không giới hạn",
-                "enterprise-feature-8": "Báo cáo tùy chỉnh",
-                "choose-plan": "Chọn gói",
-                "contact-sales": "Liên hệ bán hàng",
-                "footer-text": "© 2025 JoyHub. Tất cả quyền được bảo lưu. Tạo trải nghiệm tương tác tuyệt vời."
-            },
-            en: {
-                job: "Job",
-                medical: "Medical",
-                School: "School",
-                Trade: "Trade",
-                Product: "Product",
-                It: "It",
-                logo: "JoyHub",
-                industries: "Industries",
-                features: "Features",
-                pricing: "Pricing",
-                blog: "Blog",
-                support: "Support",
-                login: "Login",
-                register: "Register",
-                "hero-title": "JoyHub - Your Gateway to Interactive Marketing",
-                "hero-description": "Our platform revolutionizes how you connect with your audience, offering captivating bio link pages and detailed analytics. Experience the joy of seamless interaction and watch your brand's impact grow with JoyHub.",
-                "get-started": "Get Started",
-                "services-title": "Our Services",
-                marketing: "Marketing",
-                analytics: "Analytics",
-                branding: "Branding",
-                integration: "Integration",
-                "social-marketing": "Social Media Marketing",
-                "social-marketing-desc": "Optimize your social media strategy with advanced marketing tools and detailed analytics.",
-                "content-creation": "Content Creation",
-                "content-creation-desc": "Create engaging content with ready-made templates and professional editing tools.",
-                "email-campaigns": "Email Campaigns",
-                "email-campaigns-desc": "Design and send effective marketing emails with high open rates.",
-                "real-time-analytics": "Real-Time Analytics",
-                "real-time-analytics-desc": "Track your campaign performance with continuously updated data.",
-                "user-behavior": "User Behavior",
-                "user-behavior-desc": "Understand how customers interact with your brand.",
-                "conversion-tracking": "Conversion Tracking",
-                "conversion-tracking-desc": "Measure ROI and optimize conversion rates effectively.",
-                "brand-identity": "Brand Identity",
-                "brand-identity-desc": "Build a strong and consistent brand identity across all channels.",
-                "logo-design": "Logo Design",
-                "logo-design-desc": "Create unique and professional logos for your brand.",
-                "brand-guidelines": "Brand Guidelines",
-                "brand-guidelines-desc": "Establish principles and guidelines for brand usage.",
-                "api-integration": "API Integration",
-                "api-integration-desc": "Seamlessly connect with other platforms and services.",
-                "third-party": "Third-Party Apps",
-                "third-party-desc": "Integrate with hundreds of popular applications.",
-                automation: "Automation",
-                "automation-desc": "Set up automated workflows to save time.",
-                "pricing-title": "Service Pricing",
-                monthly: "Monthly",
-                yearly: "Yearly",
-                enterprise: "Enterprise",
-                "basic-plan": "Basic",
-                "plus-plan": "Plus",
-                "pro-plan": "Pro",
-                "enterprise-plan": "Enterprise",
-                "contact-us": "Contact Us",
-                "basic-feature-1": "Up to 20 links",
-                "basic-feature-2": "5,000 views",
-                "basic-feature-3": "Basic customization",
-                "basic-feature-4": "Email support",
-                "plus-feature-1": "Up to 100 links",
-                "plus-feature-2": "30,000 views",
-                "plus-feature-3": "Advanced customization",
-                "plus-feature-4": "Detailed analytics",
-                "plus-feature-5": "Priority support",
-                "pro-feature-1": "Unlimited links",
-                "pro-feature-2": "Unlimited views",
-                "pro-feature-3": "Dynamic customization",
-                "pro-feature-4": "Advanced analytics",
-                "pro-feature-5": "API access",
-                "pro-feature-6": "24/7 support",
-                "enterprise-feature-1": "Fully customized solutions",
-                "enterprise-feature-2": "Enterprise system integration",
-                "enterprise-feature-3": "Dedicated manager support",
-                "enterprise-feature-4": "99.9% uptime SLA",
-                "enterprise-feature-5": "Bank-grade security",
-                "enterprise-feature-6": "In-depth training and consulting",
-                "enterprise-feature-7": "Unlimited API",
-                "enterprise-feature-8": "Custom reporting",
-                "choose-plan": "Choose Plan",
-                "contact-sales": "Contact Sales",
-                "footer-text": "© 2025 JoyHub. All rights reserved. Creating amazing interactive experiences."
-            },
-            ja: {
-                job: "お仕事",
-                medical: "医学",
-                School: "学校",
-                Trade: "貿易",
-                Product: "創造",
-                It: "It",
-                logo: "JoyHub",
-                industries: "業界",
-                features: "機能",
-                pricing: "料金",
-                blog: "ブログ",
-                support: "サポート",
-                login: "ログイン",
-                register: "登録",
-                "hero-title": "JoyHub - インタラクティブマーケティングへの入り口",
-                "hero-description": "私たちのプラットフォームは、魅力的なバイオリンクページと詳細な分析を提供し、オーディエンスとのつながり方を革新します。シームレスなインタラクションの喜びを体験し、JoyHubでブランドの影響力が成長するのを見守ってください。",
-                "get-started": "今すぐ始める",
-                "services-title": "私たちのサービス",
-                marketing: "マーケティング",
-                analytics: "分析",
-                branding: "ブランディング",
-                integration: "統合",
-                "social-marketing": "ソーシャルメディアマーケティング",
-                "social-marketing-desc": "高度なマーケティングツールと詳細な分析でソーシャルメディア戦略を最適化します。",
-                "content-creation": "コンテンツ作成",
-                "content-creation-desc": "既製のテンプレートとプロの編集ツールで魅力的なコンテンツを作成します。",
-                "email-campaigns": "メールキャンペーン",
-                "email-campaigns-desc": "高い開封率を持つ効果的なマーケティングメールを設計・送信します。",
-                "real-time-analytics": "リアルタイム分析",
-                "real-time-analytics-desc": "継続的に更新されるデータでキャンペーンのパフォーマンスを追跡します。",
-                "user-behavior": "ユーザー行動",
-                "user-behavior-desc": "顧客がブランドとどのように相互作用するかを理解します。",
-                "conversion-tracking": "コンバージョン追跡",
-                "conversion-tracking-desc": "ROIを測定し、コンバージョン率を効果的に最適化します。",
-                "brand-identity": "ブランドアイデンティティ",
-                "brand-identity-desc": "すべてのチャネルで強力で一貫したブランドアイデンティティを構築します。",
-                "logo-design": "ロゴデザイン",
-                "logo-design-desc": "ブランドのためのユニークでプロフェッショナルなロゴを作成します。",
-                "brand-guidelines": "ブランドガイドライン",
-                "brand-guidelines-desc": "ブランド使用のための原則とガイドラインを確立します。",
-                "api-integration": "API統合",
-                "api-integration-desc": "他のプラットフォームやサービスとシームレスに接続します。",
-                "third-party": "サードパーティアプリ",
-                "third-party-desc": "数百の人気アプリケーションと統合します。",
-                automation: "自動化",
-                "automation-desc": "時間を節約するための自動化ワークフローを設定します。",
-                "pricing-title": "サービス料金",
-                monthly: "月額",
-                yearly: "年額",
-                enterprise: "エンタープライズ",
-                "basic-plan": "ベーシック",
-                "plus-plan": "プラス",
-                "pro-plan": "プロ",
-                "enterprise-plan": "エンタープライズ",
-                "contact-us": "お問い合わせ",
-                "basic-feature-1": "最大20リンク",
-                "basic-feature-2": "5,000ビュー",
-                "basic-feature-3": "基本カスタマイゼーション",
-                "basic-feature-4": "メールサポート",
-                "plus-feature-1": "最大100リンク",
-                "plus-feature-2": "30,000ビュー",
-                "plus-feature-3": "高度なカスタマイゼーション",
-                "plus-feature-4": "詳細な分析",
-                "plus-feature-5": "優先サポート",
-                "pro-feature-1": "無制限リンク",
-                "pro-feature-2": "無制限ビュー",
-                "pro-feature-3": "動的カスタマイゼーション",
-                "pro-feature-4": "高度な分析",
-                "pro-feature-5": "APIアクセス",
-                "pro-feature-6": "24/7サポート",
-                "enterprise-feature-1": "完全カスタマイズソリューション",
-                "enterprise-feature-2": "エンタープライズシステム統合",
-                "enterprise-feature-3": "専任マネージャーサポート",
-                "enterprise-feature-4": "99.9%稼働率SLA",
-                "enterprise-feature-5": "銀行レベルのセキュリティ",
-                "enterprise-feature-6": "詳細なトレーニングとコンサルティング",
-                "enterprise-feature-7": "無制限API",
-                "enterprise-feature-8": "カスタムレポート",
-                "choose-plan": "プランを選択",
-                "contact-sales": "営業にお問い合わせ",
-                "footer-text": "© 2025 JoyHub. すべての権利は保護されています。素晴らしいインタラクティブ体験を創造します。"
-            }
-        };
-
-        let currentLanguage = 'vi';
-
-        // Language functionality
-        function toggleLanguageDropdown() {
-            const dropdown = document.getElementById('language-dropdown');
-            dropdown.classList.toggle('active');
-        }
-
-        function changeLanguage(lang) {
-            currentLanguage = lang;
-            const langNames = {
-                'vi': '🇻🇳 Tiếng Việt',
-                'en': '🇺🇸 English',
-                'ja': '🇯🇵 日本語'
-            };
-            
-            document.getElementById('current-lang').textContent = langNames[lang];
-            document.getElementById('language-dropdown').classList.remove('active');
-            
-            // Update all translatable elements
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
-        }
-
-        // Tab functionality
-        function showTab(section, tabName) {
-            // Hide all tab contents for this section
-            const tabContents = document.querySelectorAll(`[id^="${section}-"]`);
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all tab buttons in this section
-            const tabButtons = document.querySelectorAll(`[onclick*="${section}"]`);
-            tabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            
-            // Show selected tab content
-            document.getElementById(`${section}-${tabName}`).classList.add('active');
-            
-            // Add active class to clicked button
-            event.target.classList.add('active');
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const languageSelector = document.querySelector('.language-selector');
-            const dropdown = document.getElementById('language-dropdown');
-            
-            if (!languageSelector.contains(event.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add some interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effects to cards
-            const cards = document.querySelectorAll('.content-card, .pricing-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px) scale(1.02)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-
-            // Add click effects to buttons
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    // Create ripple effect
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    
-                    ripple.style.cssText = `
-                        position: absolute;
-                        width: ${size}px;
-                        height: ${size}px;
-                        left: ${x}px;
-                        top: ${y}px;
-                        background: rgba(255, 255, 255, 0.5);
-                        border-radius: 50%;
-                        transform: scale(0);
-                        animation: ripple 0.6s linear;
-                        pointer-events: none;
-                    `;
-                    
-                    this.style.position = 'relative';
-                    this.style.overflow = 'hidden';
-                    this.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
-                });
-            });
-            
-            // Add CSS for ripple animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes ripple {
-                    to {
-                        transform: scale(4);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all animated elements
-        document.addEventListener('DOMContentLoaded', function() {
-            const animatedElements = document.querySelectorAll('.css-wrfca7, .content-card, .pricing-card');
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-        });
-    </script>
-</body>
+<script src="script.js"></script></body>
 </html>
